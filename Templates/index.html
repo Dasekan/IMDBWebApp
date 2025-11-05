@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>IMDB Search</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    form { margin-bottom: 12px; }
+    table { border-collapse: collapse; margin-top: 8px; }
+    th, td { padding: 6px 10px; border: 1px solid #ccc; }
+  </style>
+</head>
+<body>
+  <h1>IMDB Search (C# Minimal)</h1>
+
+  <h2>Search Movies</h2>
+  <form action="/search/movies" method="get">
+    <input type="text" name="q" value="{{q_movies}}" placeholder="Search movies..." />
+    <button type="submit">Search Movies</button>
+  </form>
+
+  <div id="movies">
+    {{movies_html}}
+  </div>
+
+  <hr/>
+
+  <h2>Search People</h2>
+  <form action="/search/people" method="get">
+    <input type="text" name="q" value="{{q_people}}" placeholder="Search people..." />
+    <button type="submit">Search People</button>
+  </form>
+
+  <div id="people">
+    {{people_html}}
+  </div>
+</body>
+</html>

@@ -1,0 +1,61 @@
+﻿@model List<IMDB_UI.Models.Movie>
+
+@{
+    ViewData["Title"] = "Movie Search Results";
+}
+
+<div class="container">
+    <h2>Movie Search Results for "@ViewBag.Query"</h2>
+
+    <a href="@Url.Action("Index")" class="btn btn-secondary mb-3">← Back to Search</a>
+
+    @if (Model.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Genres</th>
+                        <th>Runtime</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var movie in Model)
+                    {
+                        <tr>
+                            <td>
+                                <strong>@movie.primaryTitle</strong>
+                                @if (!string.IsNullOrEmpty(movie.originalTitle) && movie.originalTitle != movie.primaryTitle)
+                                {
+                                    <br />
+                        
+                                    <small class="text-muted">@movie.originalTitle</small>
+                                }
+                            </td>
+                            <td>@movie.genres</td>
+                            <td>@(movie.runtimeMinutes?.ToString() ?? "N/A") min</td>
+                            <td>
+                                <div class="btn-group btn-group-sm">
+                                    <a href="@Url.Action("MovieDetail", new { id = movie.tconst })" class="btn btn-info">View</a>
+                                    <a href="@Url.Action("EditMovie", new { id = movie.tconst })" class="btn btn-warning">Edit</a>
+                                    <form method="post" action="@Url.Action("DeleteMovie")" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this movie?');">
+                                        <input type="hidden" name="id" value="@movie.tconst" />
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">
+            No movies found for "@ViewBag.Query".
+        </div>
+    }
+</div>

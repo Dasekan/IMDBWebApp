@@ -1,0 +1,56 @@
+﻿@model IMDB_UI.Models.Movie
+
+<h2>Edit Movie</h2>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+<form asp-action="EditMovie" method="post">
+    <input type="hidden" asp-for="tconst" />
+
+    <div class="form-group">
+        <label asp-for="titleType">Title Type</label>
+        <select asp-for="titleType" class="form-control">
+            <option value="movie">Movie</option>
+            <option value="tvSeries">TV Series</option>
+            <option value="tvMovie">TV Movie</option>
+            <option value="short">Short</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="primaryTitle">Primary Title*</label>
+        <input asp-for="primaryTitle" class="form-control" required />
+        <span asp-validation-for="primaryTitle" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="originalTitle">Original Title</label>
+        <input asp-for="originalTitle" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="startYear">Start Year</label>
+        <input asp-for="startYear" type="text" class="form-control" placeholder="2024" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="endYear">End Year</label>
+        <input asp-for="endYear" type="text" class="form-control" placeholder="2024" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="runtimeMinutes">Runtime (minutes)</label>
+        <input asp-for="runtimeMinutes" type="number" class="form-control" min="1" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="genres">Genres (comma separated)</label>
+        <input asp-for="genres" class="form-control" placeholder="Action,Adventure,Sci-Fi" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update Movie</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

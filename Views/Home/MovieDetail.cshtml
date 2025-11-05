@@ -1,0 +1,42 @@
+﻿@model IMDB_UI.Models.MovieDetail
+
+@{
+    ViewData["Title"] = Model.primaryTitle;
+}
+
+<div class="container">
+    <!-- ADMIN ACTIONS - ADD THIS SECTION -->
+    <div class="admin-actions mb-3">
+        <div class="btn-group">
+            <a href="@Url.Action("EditMovie", new { id = Model.tconst })" class="btn btn-warning">Edit Movie</a>
+            <form method="post" action="@Url.Action("DeleteMovie")" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this movie?');">
+                <input type="hidden" name="id" value="@Model.tconst" />
+                <button type="submit" class="btn btn-danger">Delete Movie</button>
+            </form>
+            <a href="@Url.Action("Index")" class="btn btn-secondary">Back to Search</a>
+        </div>
+    </div>
+
+    <h1>@Model.primaryTitle</h1>
+
+    <!-- REST OF YOUR EXISTING MOVIE DETAIL CODE -->
+    <div class="row">
+        <div class="col-md-8">
+            <p><strong>Original Title:</strong> @Model.originalTitle</p>
+            <p><strong>Genres:</strong> @Model.genres</p>
+            <p><strong>Start Year:</strong> @Model.startYear</p>
+            <p><strong>Runtime:</strong> @(Model.runtimeMinutes?.ToString() ?? "N/A") minutes</p>
+        </div>
+    </div>
+
+    @if (Model.Principals.Any())
+    {
+        <h3>Cast & Crew</h3>
+        <ul>
+            @foreach (var person in Model.Principals)
+            {
+                <li>@person.primaryName - @person.primaryProfession</li>
+            }
+        </ul>
+    }
+</div>

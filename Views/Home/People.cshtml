@@ -1,0 +1,48 @@
+﻿@model List<IMDB_UI.Models.Person>
+
+@{
+    ViewData["Title"] = "People Search Results";
+}
+
+<div class="container">
+    <h2>People Search Results for "@ViewBag.Query"</h2>
+
+    <a href="@Url.Action("Index")" class="btn btn-secondary mb-3">← Back to Search</a>
+
+    @if (Model.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Profession</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var person in Model)
+                    {
+                        <tr>
+                            <td>@person.primaryName</td>
+                            <td>@person.primaryProfession</td>
+                            <td>
+                                <div class="btn-group btn-group-sm">
+                                    <a href="#" class="btn btn-info">View</a>
+                                    <a href="#" class="btn btn-warning">Edit</a>
+                                    <button class="btn btn-danger">Delete</button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">
+            No people found for "@ViewBag.Query".
+        </div>
+    }
+</div>

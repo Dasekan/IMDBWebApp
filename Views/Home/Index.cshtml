@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "IMDB Search";
+}
+
+<div class="container">
+    <h1>IMDB Movie Database</h1>
+
+    <!-- ADMIN SECTION - ADD THIS -->
+    <div class="admin-section" style="background: #f8f9fa; padding: 20px; border-radius: 5px; margin-bottom: 30px;">
+        <h2>Admin Actions</h2>
+        <div class="btn-group">
+            <a href="@Url.Action("CreateMovie")" class="btn btn-success">Add New Movie</a>
+            <a href="@Url.Action("CreatePerson")" class="btn btn-info">Add New Person</a>
+        </div>
+    </div>
+
+    <!-- EXISTING SEARCH SECTION -->
+    <div class="search-section">
+        <h2>Search Database</h2>
+        <form method="get" action="@Url.Action("Index")">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Search for movies or people..." value="@ViewBag.Query">
+                <div class="input-group-append">
+                    <button type="submit" name="type" value="movies" class="btn btn-primary">Search Movies</button>
+                    <button type="submit" name="type" value="people" class="btn btn-secondary">Search People</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- SUCCESS/ERROR MESSAGES -->
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success mt-3">@TempData["SuccessMessage"]</div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger mt-3">@TempData["ErrorMessage"]</div>
+    }
+</div>

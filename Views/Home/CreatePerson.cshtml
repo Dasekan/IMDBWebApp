@@ -1,0 +1,28 @@
+﻿@model IMDB_UI.Models.Person
+
+<h2>Add New Person</h2>
+
+<form asp-action="CreatePerson" method="post">
+    <div class="form-group">
+        <label asp-for="nconst">Person ID (nconst)*</label>
+        <input asp-for="nconst" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="primaryName">Full Name*</label>
+        <input asp-for="primaryName" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="birthYear">Birth Year</label>
+        <input asp-for="birthYear" type="number" class="form-control" min="1800" max="2030" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="primaryProfession">Profession</label>
+        <input asp-for="primaryProfession" class="form-control" placeholder="actor,director,writer" />
+    </div>
+
+    <button type="submit" class="btn btn-success">Create Person</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

@@ -1,0 +1,66 @@
+@model MovieSearchApp.Models.SearchViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@Model?.MovieDetail?.primaryTitle</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .movie-info { margin-bottom: 30px; }
+        .principals { margin-top: 20px; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .back-link { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="back-link">
+        <a href="@Url.Action("Index")">← Back to Search</a>
+    </div>
+
+    @if (Model?.MovieDetail != null)
+    {
+        <div class="movie-info">
+            <h1>@Model.MovieDetail.primaryTitle</h1>
+            <p><strong>Type:</strong> @Model.MovieDetail.titleType</p>
+            <p><strong>Year:</strong> @Model.MovieDetail.startYear</p>
+            <p><strong>Runtime:</strong> @Model.MovieDetail.runtimeMinutes minutes</p>
+            <p><strong>Genres:</strong> @Model.MovieDetail.genres</p>
+            <p><strong>Rating:</strong> @Model.MovieDetail.averageRating/10 (@Model.MovieDetail.numVotes votes)</p>
+        </div>
+
+        @if (Model.Principals != null && Model.Principals.Any())
+        {
+            <div class="principals">
+                <h2>Cast & Crew</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Role</th>
+                            <th>Job</th>
+                            <th>Characters</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var principal in Model.Principals)
+                        {
+                            <tr>
+                                <td>@principal.primaryName</td>
+                                <td>@principal.category</td>
+                                <td>@principal.job</td>
+                                <td>@principal.characters</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    }
+    else
+    {
+        <p>Movie not found.</p>
+    }
+</body>
+</html>
